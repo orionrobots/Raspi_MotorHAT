@@ -4,7 +4,7 @@ My enhancements on the MotorHAT Code.
 
 ## MotorHAT
 
-The MotorHAT - also known as "Full Function Stepper Controller" is a Raspberry Pi hat that seems to be commonly available on the internet.
+The MotorHAT - also known as "Full Function Stepper Controller" is a Raspberry Pi hat that seems to be commonly available on the internet. The device uses the PCA9685 16 channel servo or I2C to PWM driver chip. 
 
 The hat is a very handy one, with a lot of the functions of the AdaFruit stepper hat:
 
@@ -23,7 +23,29 @@ But with some different features:
 
 ## Using this library
 
-On the Raspberry Pi, first grab this code.
+Install the library on the Raspberry Pi with:
+  
+  pip install git+https://github.com/orionrobots/Raspi_MotorHAT
+  
+To use a DC motor connected to M1:
+
+  from Raspi_MotorHAT import Raspi_MotorHAT
+
+  mh = Raspi_MotorHAT(addr=0x6f)
+  
+  motor = mh.getMotor(1)
+  
+To set its speed:
+
+  motor.setSpeed(150)
+  
+To set it's direction:
+
+  motor.run(Raspi_MotorHAT.FORWARD)
+  
+Directions are FORWARD, BACKWARD and RELEASE. Speed is a positive integer and varies from 0 to 255.
+
+Using a servo motor connected to channel 1, see the example under https://github.com/orionrobots/Raspi_MotorHAT/blob/master/Raspi_MotorHAT/ServoTest.py.
 
 ## Why it exists and accrediting Adafruit
 
