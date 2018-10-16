@@ -143,9 +143,3 @@ class Raspi_I2C(object):
     except IOError:
       return self.errMsg()
 
-if __name__ == '__main__':
-  try:
-    bus = Raspi_I2C(address=0)
-    print("Default I2C bus is accessible")
-  except:
-    print("Error accessing default I2C bus")
