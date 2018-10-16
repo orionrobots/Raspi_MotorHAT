@@ -43,16 +43,6 @@ class Raspi_I2C(object):
     self.bus = smbus.SMBus(busnum if busnum >= 0 else Raspi_I2C.getPiI2CBusNumber())
     self.debug = debug
 
-  def reverseByteOrder(self, data):
-    "Reverses the byte order of an int (16-bit) or long (32-bit) value"
-    # Courtesy Vishal Sapre
-    byteCount = len(hex(data)[2:].replace('L','')[::2])
-    val       = 0
-    for i in range(byteCount):
-      val    = (val << 8) | (data & 0xff)
-      data >>= 8
-    return val
-
   def errMsg(self):
     print("Error accessing 0x%02X: Check your I2C address" % self.address)
     return -1
