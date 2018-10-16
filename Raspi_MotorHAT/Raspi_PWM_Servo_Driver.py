@@ -1,14 +1,11 @@
 #!/usr/bin/python
-from __future__ import print_function
+from __future__ import print_function, absolute_import
 import time
 import math
-from Raspi_I2C import Raspi_I2C
+from .Raspi_I2C import Raspi_I2C
 
-# ============================================================================
-# Raspi PCA9685 16-Channel PWM Servo Driver
-# ============================================================================
-
-class PWM :
+class PWM:
+  """Raspi PCA9685 16-Channel PWM Servo Driver"""
   # Registers/etc.
   __MODE1              = 0x00
   __MODE2              = 0x01
@@ -36,7 +33,7 @@ class PWM :
 
   @classmethod
   def softwareReset(cls):
-    "Sends a software reset (SWRST) command to all the servo drivers on the bus"
+    """Sends a software reset (SWRST) command to all the servo drivers on the bus"""
     cls.general_call_i2c.writeRaw8(0x06)        # SWRST
 
   def __init__(self, address=0x40, debug=False):
@@ -57,7 +54,7 @@ class PWM :
     time.sleep(0.005)                             # wait for oscillator
 
   def setPWMFreq(self, freq):
-    "Sets the PWM frequency"
+    """Sets the PWM frequency"""
     prescaleval = 25000000.0    # 25MHz
     prescaleval /= 4096.0       # 12-bit
     prescaleval /= float(freq)
@@ -78,14 +75,14 @@ class PWM :
     self.i2c.write8(self.__MODE1, oldmode | 0x80)
 
   def setPWM(self, channel, on, off):
-    "Sets a single PWM channel"
+    """Sets a single PWM channel"""
     self.i2c.write8(self.__LED0_ON_L+4*channel, on & 0xFF)
     self.i2c.write8(self.__LED0_ON_H+4*channel, on >> 8)
     self.i2c.write8(self.__LED0_OFF_L+4*channel, off & 0xFF)
     self.i2c.write8(self.__LED0_OFF_H+4*channel, off >> 8)
 
   def setAllPWM(self, on, off):
-    "Sets a all PWM channels"
+    """Sets a all PWM channels"""
     self.i2c.write8(self.__ALL_LED_ON_L, on & 0xFF)
     self.i2c.write8(self.__ALL_LED_ON_H, on >> 8)
     self.i2c.write8(self.__ALL_LED_OFF_L, off & 0xFF)
