@@ -1,0 +1,7 @@
+language: python
+# The Raspberry Pi versions
+python:
+  - "2.7"
+  - "3.5"
+install:
+  - pip install -r pep8

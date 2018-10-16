@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+from __future__ import print_function
 import time
 import math
 from Raspi_I2C import Raspi_I2C
@@ -45,7 +45,7 @@ class PWM :
     self.address = address
     self.debug = debug
     if (self.debug):
-      print "Reseting PCA9685 MODE1 (without SLEEP) and MODE2"
+      print("Reseting PCA9685 MODE1 (without SLEEP) and MODE2")
     self.setAllPWM(0, 0)
     self.i2c.write8(self.__MODE2, self.__OUTDRV)
     self.i2c.write8(self.__MODE1, self.__ALLCALL)
@@ -63,13 +63,13 @@ class PWM :
     prescaleval /= float(freq)
     prescaleval -= 1.0
     if (self.debug):
-      print "Setting PWM frequency to %d Hz" % freq
-      print "Estimated pre-scale: %d" % prescaleval
+      print("Setting PWM frequency to %d Hz" % freq)
+      print("Estimated pre-scale: %d" % prescaleval)
     prescale = math.floor(prescaleval + 0.5)
     if (self.debug):
-      print "Final pre-scale: %d" % prescale
+      print("Final pre-scale: %d" % prescale)
 
-    oldmode = self.i2c.readU8(self.__MODE1);
+    oldmode = self.i2c.readU8(self.__MODE1)
     newmode = (oldmode & 0x7F) | 0x10             # sleep
     self.i2c.write8(self.__MODE1, newmode)        # go to sleep
     self.i2c.write8(self.__PRESCALE, int(math.floor(prescale)))
