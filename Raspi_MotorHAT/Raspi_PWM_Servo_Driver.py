@@ -4,7 +4,7 @@ import time
 import math
 from .Raspi_I2C import Raspi_I2C
 
-class PWM:
+class PWM(object):
   """Raspi PCA9685 16-Channel PWM Servo Driver"""
   # Registers/etc.
   __MODE1              = 0x00

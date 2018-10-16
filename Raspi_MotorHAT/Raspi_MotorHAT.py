@@ -3,7 +3,7 @@ from __future__ import print_function, absolute_import
 from .Raspi_PWM_Servo_Driver import PWM
 import time
 
-class Raspi_StepperMotor:
+class Raspi_StepperMotor(object):
     MICROSTEPS = 8
     MICROSTEP_CURVE = [0, 50, 98, 142, 180, 212, 236, 250, 255]
 
@@ -165,7 +165,7 @@ class Raspi_StepperMotor:
                 lateststep = self.oneStep(dir, stepstyle)
                 time.sleep(s_per_s)
         
-class Raspi_DCMotor:
+class Raspi_DCMotor(object):
     def __init__(self, controller, num):
         self.MC = controller
         self.motornum = num
