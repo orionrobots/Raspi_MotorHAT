@@ -5,6 +5,7 @@ import time
 
 class Raspi_StepperMotor:
     MICROSTEPS = 8
+    HALF_MICROSTEPS = 4
     MICROSTEP_CURVE = [0, 50, 98, 142, 180, 212, 236, 250, 255]
 
     #MICROSTEPS = 16
@@ -47,12 +48,12 @@ class Raspi_StepperMotor:
 
         # first determine what sort of stepping procedure we're up to
         if (style == Raspi_MotorHAT.SINGLE):
-            if ((self.currentstep/(self.MICROSTEPS/2)) % 2): 
+            if ((self.currentstep // self.HALF_MICROSTEPS) % 2): 
                 # we're at an odd step, weird
                 if (dir == Raspi_MotorHAT.FORWARD):
-                    self.currentstep += self.MICROSTEPS/2
+                    self.currentstep += self.HALF_MICROSTEPS
                 else:
-                    self.currentstep -= self.MICROSTEPS/2
+                    self.currentstep -= self.HALF_MICROSTEPS
             else:
                 # go to next even step
                 if (dir == Raspi_MotorHAT.FORWARD):
@@ -60,12 +61,12 @@ class Raspi_StepperMotor:
                 else:
                     self.currentstep -= self.MICROSTEPS
         if (style == Raspi_MotorHAT.DOUBLE):
-            if not (self.currentstep/(self.MICROSTEPS/2) % 2):
+            if not ((self.currentstep // self.HALF_MICROSTEPS) % 2):
                 # we're at an even step, weird
                 if (dir == Raspi_MotorHAT.FORWARD):
-                    self.currentstep += self.MICROSTEPS/2
+                    self.currentstep += self.HALF_MICROSTEPS
                 else:
-                    self.currentstep -= self.MICROSTEPS/2
+                    self.currentstep -= self.HALF_MICROSTEPS
             else:
                 # go to next odd step
                 if (dir == Raspi_MotorHAT.FORWARD):
@@ -74,9 +75,9 @@ class Raspi_StepperMotor:
                     self.currentstep -= self.MICROSTEPS
         if (style == Raspi_MotorHAT.INTERLEAVE):
             if (dir == Raspi_MotorHAT.FORWARD):
-                self.currentstep += self.MICROSTEPS/2
+                self.currentstep += self.HALF_MICROSTEPS
             else:
-                self.currentstep -= self.MICROSTEPS/2
+                self.currentstep -= self.HALF_MICROSTEPS
 
         if (style == Raspi_MotorHAT.MICROSTEP):
             if (dir == Raspi_MotorHAT.FORWARD):
@@ -172,21 +173,21 @@ class Raspi_DCMotor:
         pwm = in1 = in2 = 0
 
         if (num == 0):
-                    pwm = 8
-                    in2 = 9
-                    in1 = 10
+            pwm = 8
+            in2 = 9
+            in1 = 10
         elif (num == 1):
-                    pwm = 13
-                    in2 = 12
-                    in1 = 11
+            pwm = 13
+            in2 = 12
+            in1 = 11
         elif (num == 2):
-                    pwm = 2
-                    in2 = 3
-                    in1 = 4
+            pwm = 2
+            in2 = 3
+            in1 = 4
         elif (num == 3):
-                    pwm = 7
-                    in2 = 6
-                    in1 = 5
+            pwm = 7
+            in2 = 6
+            in1 = 5
         else:
             raise NameError('MotorHAT Motor must be between 1 and 4 inclusive')
         self.PWMpin = pwm
@@ -205,6 +206,7 @@ class Raspi_DCMotor:
         if (command == Raspi_MotorHAT.RELEASE):
             self.MC.setPin(self.IN1pin, 0)
             self.MC.setPin(self.IN2pin, 0)
+
     def setSpeed(self, speed):
         if (speed < 0):
             speed = 0
@@ -223,7 +225,7 @@ class Raspi_MotorHAT:
     INTERLEAVE = 3
     MICROSTEP = 4
 
-    def __init__(self, addr = 0x60, freq = 1600):
+    def __init__(self, addr=0x60, freq=1600):
         self._i2caddr = addr            # default addr on HAT
         self._frequency = freq		# default @1600Hz PWM freq
         self.motors = [ Raspi_DCMotor(self, m) for m in range(4) ]
@@ -243,7 +245,7 @@ class Raspi_MotorHAT:
 
     def getStepper(self, steps, num):
         if (num < 1) or (num > 2):
-                raise NameError('MotorHAT Stepper must be between 1 and 2 inclusive')
+            raise NameError('MotorHAT Stepper must be between 1 and 2 inclusive')
         return self.steppers[num-1]
 
     def getMotor(self, num):
