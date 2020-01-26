@@ -1,6 +1,6 @@
 #!/usr/bin/python
-from __future__ import print_function
-from Raspi_MotorHAT import Raspi_MotorHAT
+from __future__ import print_function, absolute_import
+from .Raspi_MotorHAT import Raspi_MotorHAT
 
 import time
 import atexit

@@ -1,5 +1,6 @@
 #!/usr/bin/python
-from Raspi_MotorHAT import Raspi_MotorHAT
+from __future__ import absolute_import
+from .Raspi_MotorHAT import Raspi_MotorHAT
 import atexit
 import threading
 import random

@@ -155,7 +155,7 @@ class Raspi_StepperMotor:
 
         print(s_per_s, " sec per step")
 
-        for s in range(steps):
+        for _ in range(steps):
             lateststep = self.oneStep(direction, stepstyle)
             time.sleep(s_per_s)
 
