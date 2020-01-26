@@ -49,7 +49,7 @@ class Raspi_I2C(object):
     # Courtesy Vishal Sapre
     byteCount = len(hex(data)[2:].replace('L','')[::2])
     val       = 0
-    for i in range(byteCount):
+    for _ in range(byteCount):
       val    = (val << 8) | (data & 0xff)
       data >>= 8
     return val
