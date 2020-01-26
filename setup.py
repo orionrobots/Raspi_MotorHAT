@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="Raspi_MotorHAT",
-    version="0.0.1",
+    version="0.0.2",
     author="Unknown author",
     author_email="Unknown",
     description="Code to interface with the Raspi_MotorHAT board.",

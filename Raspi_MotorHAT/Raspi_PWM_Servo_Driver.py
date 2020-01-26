@@ -1,8 +1,8 @@
 #!/usr/bin/python
-from __future__ import print_function
+from __future__ import print_function, absolute_import
 import time
 import math
-from Raspi_I2C import Raspi_I2C
+from .Raspi_I2C import Raspi_I2C
 
 # ============================================================================
 # Raspi PCA9685 16-Channel PWM Servo Driver
