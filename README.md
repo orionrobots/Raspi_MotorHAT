@@ -23,25 +23,27 @@ But with some different features:
 
 ## Using this library
 
+Prerequisites:
+
+    sudo apt-get install python3-smbus i2c-tools
+    
 Install the library on the Raspberry Pi with:
   
-  pip install git+https://github.com/orionrobots/Raspi_MotorHAT
+    pip install git+https://github.com/orionrobots/Raspi_MotorHAT
   
 To use a DC motor connected to M1:
 
-  from Raspi_MotorHAT import Raspi_MotorHAT
-
-  mh = Raspi_MotorHAT(addr=0x6f)
-  
-  motor = mh.getMotor(1)
+    from Raspi_MotorHAT import Raspi_MotorHAT
+    mh = Raspi_MotorHAT(addr=0x6f)
+    motor = mh.getMotor(1)
   
 To set its speed:
 
-  motor.setSpeed(150)
+    motor.setSpeed(150)
   
 To set it's direction:
 
-  motor.run(Raspi_MotorHAT.FORWARD)
+    motor.run(Raspi_MotorHAT.FORWARD)
   
 Directions are FORWARD, BACKWARD and RELEASE. Speed is a positive integer and varies from 0 to 255.
 
