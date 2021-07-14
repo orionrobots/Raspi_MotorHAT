@@ -133,7 +133,7 @@ class Raspi_StepperMotor:
                 [0, 0, 1, 1],
                 [0, 0, 0, 1],
                 [1, 0, 0, 1] ]
-            coils = step2coils[self.currentstep/(self.MICROSTEPS/2)]
+            coils = step2coils[int(self.currentstep/(self.MICROSTEPS/2))]
 
         #print "coils state = " + str(coils)
         self.MC.setPin(self.AIN2, coils[0])
